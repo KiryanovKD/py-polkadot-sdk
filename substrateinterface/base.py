@@ -1753,7 +1753,7 @@ class SubstrateInterface:
         )
 
     def submit_extrinsic(self, extrinsic: GenericExtrinsic, wait_for_inclusion: bool = False,
-                         wait_for_finalization: bool = False) -> "ExtrinsicReceipt":
+                         wait_for_finalization: bool = False, verbose: bool = False) -> "ExtrinsicReceipt":
         """
         Submit an extrinsic to the connected node, with the possibility to wait until the extrinsic is included
          in a block and/or the block is finalized. The receipt returned provided information about the block and
@@ -1777,6 +1777,8 @@ class SubstrateInterface:
 
         def result_handler(message, update_nr, subscription_id):
             # Check if extrinsic is included and finalized
+            if verbose:
+                print(f"result_handler message: {message}")
             if 'params' in message and type(message['params']['result']) is dict:
 
                 # Convert result enum to lower for backwards compatibility
