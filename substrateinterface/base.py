@@ -1796,6 +1796,13 @@ class SubstrateInterface:
                         'extrinsic_hash': '0x{}'.format(extrinsic.extrinsic_hash.hex()),
                         'finalized': False
                     }
+                elif 'invalid' in message_result:
+                    self.rpc_request('author_unwatchExtrinsic', [subscription_id])
+                    return {
+                        'block_hash': '',
+                        'extrinsic_hash': '0x{}'.format(extrinsic.extrinsic_hash.hex()),
+                        'finalized': False
+                    }
 
         if wait_for_inclusion or wait_for_finalization:
             response = self.rpc_request(
